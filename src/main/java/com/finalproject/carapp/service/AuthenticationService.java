@@ -14,7 +14,7 @@ import static java.util.Collections.emptyList;
 public class AuthenticationService {
 
     static final long EXPIRATIONTIME = 86_400_000; // 1 day in milliseconds
-    static final String SIGNINGKEY = "SecretKey";
+    static final String SIGNINGKEY = "SecretKeySecretKeySecretKeySecretKeySecretKeySecretKeySecretKeySecretKeySecretKeySecretKeySecretKeySecretKeySecretKeySecretKeySecretKey";
     static final String PREFIX = "Bearer";
 
     // Add token to Authorization header
