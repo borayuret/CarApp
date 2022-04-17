@@ -2,8 +2,10 @@ package com.finalproject.carapp;
 
 import com.finalproject.carapp.entity.Car;
 import com.finalproject.carapp.entity.Owner;
+import com.finalproject.carapp.entity.User;
 import com.finalproject.carapp.repository.CarRepository;
 import com.finalproject.carapp.repository.OwnerRepository;
+import com.finalproject.carapp.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ public class CarAppApplication implements CommandLineRunner {
 
     @Autowired
     private OwnerRepository ownerRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     private static final Logger logger =
             LoggerFactory.getLogger("CarAppApplication.class");
@@ -43,6 +48,11 @@ public class CarAppApplication implements CommandLineRunner {
         carRepository.save(car);
         car = new Car("Toyota", "Prius", "Silver", "KKO-0212", 2018, 39000, owner2);
         carRepository.save(car);
+
+        // username: bora password: bora1234
+        userRepository.save(new User("bora","$2a$12$eSDoSAmsfjHHQmiw3EsFfuOKAb6KGtjVM/PWgxhn0o8C/90Aj6rdO","USER"));
+        // username: admin password: admin1234
+        userRepository.save(new User("admin","$2a$12$dU0Lj0P9CxUtV6XOv3Alr.5ntIkwLpNe2xNM1wZkeBcbW1SjfoxEC","ADMIN"));
 
     }
 }
