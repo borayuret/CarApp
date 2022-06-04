@@ -32,15 +32,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+        // security'i devre dışı bırakmak için (herşeye şifresiz izin ver)
+      //  http.csrf().disable().cors().and().authorizeRequests().anyRequest().permitAll();
+        //http.cors();
+
         http.csrf().disable().cors().and().authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
+                .antMatchers("/h2-console/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 // Filter for the api/login requests
                 .addFilterBefore(new LoginFilter("/login", authenticationManager()), UsernamePasswordAuthenticationFilter.class)
                 // Filter for other requests to check JWT in header
                 .addFilterBefore(new AuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+
+        http.headers().frameOptions().disable();
     }
+
+
 
 
     @Autowired
@@ -56,7 +66,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         config.setAllowedOrigins(Arrays.asList("*"));
         config.setAllowedMethods(Arrays.asList("*"));
         config.setAllowedHeaders(Arrays.asList("*"));
-        config.setAllowCredentials(true);
+        //config.setAllowCredentials(true);
         config.applyPermitDefaultValues();
         source.registerCorsConfiguration("/**", config);
         return source;
